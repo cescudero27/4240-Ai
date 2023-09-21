@@ -68,10 +68,10 @@
       ( instantiate result ( second ( car db ) ) ) )
 
     ;; otherwise, keep looking through the DB
-    ;;( t ( respond sentence ( cdr db ) ) ) ) )
-     (t
-     (let ((randomCatchAll (nth (random (length catchAllResponses)) catchAllResponses)))
-       (instantiate nil randomCatchAll)))))
+    ( t ( respond sentence ( cdr db ) ) ) ) )
+     ;;(t
+     ;;(let ((randomCatchAll (nth (random (length catchAllResponses)) catchAllResponses)))
+      ;; (instantiate nil randomCatchAll)))))
 
 ;;----------------------------------------------------------------------------
 ;; match: if there is not a match between this pattern and this data,
@@ -188,7 +188,9 @@
    ( (Good afternoon 0)
      (Hey there how's your day been?))
 
-  (  (0 See ya 0)
+   ( (0 bye 0)
+     (Byeeeee been nice talking you))
+   ( (0 See ya 0)
      (See ya talk to ya later))
    ( (0 Chao 0)
      (Chao it was great talking with you.))   
@@ -207,7 +209,7 @@
    ( (0 talk to I 0)
      (What is it you wanna talk about?)) 
    
-   ;; 
+   ;; If we apologize to eliza
    ( ( 0 sorry 0)
      (Ehh don't apologize it's not your fault))
    
@@ -225,6 +227,8 @@
       (That's great that it makes you 4 )) 
 
    ;; responding to subjects - partitioned 
+   ;; partitioned lines that are a little complex
+   ;; meant for a deeper conversation
    ( (0 have I ever 0)
      (I don't think I have ever 5 ))
    ( (0 you have a 0)
@@ -244,27 +248,40 @@
      (Why can't you 4 ))  
    ( (0 you need to 0)
      (It seems like you need to 5 ))
+   ( (0 you know 0 but you 0)
+     (Why haven't you 7 )) 
+   ( (0 you live 0 from 0)
+     (4 is not that far away))   
 
-   ;; These aren't partitioned off 
+   ;; These aren't partitioned off in the beginning
    ;; since lisp is linear these will need to be further below in the program 
    ;; in order for lisp to recognize other rules
    ( (you have to 0)
      (Do you want to do that?))
+
    ( (thank I 0)
-     (Of course anytime!)) 
+     (Of course anytime!) ) 
+   ( (0 thanks 0)
+     (Hey no problem.))
+
    ( (you are 0)
      (Why are you 3 ?))  
-   ( (because 0)
-     (That's a pretty good reason))
+   ( (do I 0)
+     (Yeah, I really think so))
    ( (you have 0)
      (Why have you 3))
+
    ( (you want to 0)
      (If you want to 4 then you should))
-
+   ( (you don't 0)
+     (Oh! Do you wanna keep talking about it?))
+  
    ( (why haven't I 0)
      (Well because I have allergies))  
    ( (Why don't I 0)
      (I've never given it much thought))
+   ( (because 0)
+     (That's a pretty good reason))  
 
    ;; one word responses
    ( (no)
@@ -274,16 +291,6 @@
 
    ;; Conversation extenders
   
-
-	 
-
-    ) )
-
-
-    ;;additional database to randomly display one of these responses
-( setq catchAllReponses
-        '(
-
    ( (0)
    (Could you explain that further.) ) 
     
@@ -304,7 +311,10 @@
     
    ( (0)
    (What do you mean by that?) )
-    
+	 
 
-   ) )
+    ) )
+
+
+
 
