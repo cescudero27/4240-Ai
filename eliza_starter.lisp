@@ -60,7 +60,10 @@
 ( defun respond ( sentence db )
   ( cond
     ;; end of DB, return nil - should never really happen
-    ( ( null db ) nil )
+    ;; modified to randomly select a reponse from the
+    ;; randomCatchAll function further below
+    ( ( null db ) 
+      (randomCatchAll (random 8)) )
 
     ;; if the result of matching the sentence against the current
     ;; pattern is a success, produce this response
@@ -69,9 +72,7 @@
 
     ;; otherwise, keep looking through the DB
     ( t ( respond sentence ( cdr db ) ) ) ) )
-     ;;(t
-     ;;(let ((randomCatchAll (nth (random (length catchAllResponses)) catchAllResponses)))
-      ;; (instantiate nil randomCatchAll)))))
+    
 
 ;;----------------------------------------------------------------------------
 ;; match: if there is not a match between this pattern and this data,
@@ -192,6 +193,8 @@
      (Byeeeee been nice talking you))
    ( (0 See ya 0)
      (See ya talk to ya later))
+   ( (talk to I 0)
+     (Alright see ya. ))
    ( (0 Chao 0)
      (Chao it was great talking with you.))   
 	 ( (0 Goodbye 0)
@@ -215,16 +218,19 @@
    
 
 	 ;; feelings
+   ;; meant to further deepen the conversation
+   ;; might need more generic statements 
+
 	 ( (0 you think 0)
 	   (And just why do you think 4 ?) )
    ( (0 you feel 0)
-      (And why do you feel 4 ?))  
-    ( (0 you are 0)
+     (And why do you feel 4 ?))  
+   ( (0 you are 0)
      (Why are you 4 ?)) 
    ( (0 you enjoy 0)
      (Why do you enjoy 4 ?))
    ( (0 makes you 0)
-      (That's great that it makes you 4 )) 
+     (That's great that it makes you 4 )) 
 
    ;; responding to subjects - partitioned 
    ;; partitioned lines that are a little complex
@@ -244,14 +250,19 @@
    ( (0 do you 0)
      (I don't 4 ))
 
+   ;; longer sentences that are 
+   ;; partitioned in a unique way
+   ;; trying to reach end of conversation 
    ( (0 you can't 0)
      (Why can't you 4 ))  
    ( (0 you need to 0)
      (It seems like you need to 5 ))
-   ( (0 you know 0 but you 0)
-     (Why haven't you 7 )) 
+   ( (0 you know 0 but you 0 been 0)
+     (Why 7 you been 9)) 
    ( (0 you live 0 from 0)
      (4 is not that far away))   
+   ( (0 go 0 this 0)
+     (Have fun going 3 this 5))
 
    ;; These aren't partitioned off in the beginning
    ;; since lisp is linear these will need to be further below in the program 
@@ -267,7 +278,7 @@
    ( (you are 0)
      (Why are you 3 ?))  
    ( (do I 0)
-     (Yeah, I really think so))
+     (Yeah I really think so))
    ( (you have 0)
      (Why have you 3))
 
@@ -284,36 +295,52 @@
      (That's a pretty good reason))  
 
    ;; one word responses
-   ( (no)
+   ;; need more simple rules above to properly 
+   ;; activate these two rules
+   ( (0 no)
      (Let's talk about something else then.))
-   ( (yes)
+   ( (0 yes)
      (Then let's keep talking about it.))  
-
-   ;; Conversation extenders
-  
-   ( (0)
-   (Could you explain that further.) ) 
-    
-   ( (0)
-    (Can you think of another example?) )
-    
-   ( (0)
-    (Can you phrase that in another way?) )
-    
-   ( (0)
-   (I'm not sure I understand that.) )
-    
-   ( (0)
-   (Go on...) )
-    
-   ( (0)
-   (I'm not sure what to think of that.) )
-    
-   ( (0)
-   (What do you mean by that?) )
 	 
 
     ) )
+
+;;Catch all reponse function
+;; if the database does not contain any 
+;; partitioned rules that fit then
+;; this function will randomly select
+;; one of the many responses in order 
+;; to find something in the database 
+;; to keep the conversation going
+
+(defun randomCatchAll (response) 
+  (cond 
+    ((equal response '0)
+    '(Could you explain that further.))
+
+    ((equal response '1)
+    '(Can you think of another example?))
+
+    ((equal response '2)
+    '(Can you phrase that in another way?))
+
+    ((equal response '3)
+    '(I'm not sure I understand that.))
+    
+    ((equal response '4)
+    '(Go on...))
+
+    ((equal response '5)
+    '(I'm not sure what to think of that.))
+
+    ((equal response '6)
+    '(What do you mean by that?))
+    
+    ((equal response '7)
+    '(Could you explain that again))
+       
+       
+       ))
 
 
 
