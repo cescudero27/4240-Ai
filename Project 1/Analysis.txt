@@ -1,0 +1,19 @@
+Analysis Requirements
+	
+	I did well in providing the database a lot of rules, such different responses for ‘Hi’, ‘Hey’, and ‘Hello’. 
+	It’s important to give the agent multiple responses to these as people start conversations in different ways. 
+	I also implemented the same feature when it came to saying goodbye. Partitioning the phrases was interesting, since I’ve never done it before. 
+	At first, I struggled to understand it but as I worked on the project, I found the partitioning easier and got more creative with it. 
+	The pronoun switching was intriguing as well, since I had to think of every possible combination and see what made since grammatically.
+
+	Eliza really didn’t handle possessive contractions such as: “you’ll” or “I’ll”. I tried to get them to work but had no success. 
+	I noticed that it did not take long sentences well. I believe it found two examples in the database but did not know which one to return, so it simply went to catch all. 
+	I may have given it too many rules in which it tries to initiate a conversation early on as when I tried saying “talk to you later”, it recognized that part of the sentence and gave one of the early conversation responses. 
+	While there were enough rules in there, I did not cover various subjects that would lead to further conversation. 
+	The “yes” and “no” responses could also have used randomization as well; this could lead to more unique conversation given those two responses. 
+	
+	It would be interesting if the agent recalled conversations and formatted its responses based on those. This would enable it to pull key words out of past conversations and modify its response with those previous key phrases. 
+	I would make sure it could handle possessive contractions and commas as well, this would enable us to make more rules in the change pronouns function. 
+	We could also implement more rules into the Eliza program to help cover more situations. 
+	An interesting concept to add would also be identifying 3rd person pronouns such as he, she, her, him, while the swapping of these would not be necessary it would be interesting on how it would handle going from his to, he and hers to her. 
+	Overall, the main modification would be retention of previous conversations for a more sophisticated agent.
