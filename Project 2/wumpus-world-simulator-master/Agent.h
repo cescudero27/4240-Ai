@@ -5,6 +5,8 @@
 
 #include "Action.h"
 #include "Percept.h"
+#include "Location.h"
+#include "Orientation.h"
 
 class Agent
 {
@@ -14,6 +16,9 @@ public:
 	void Initialize ();
 	Action Process (Percept& percept);
 	void GameOver (int score);
+
+	Location agent_position;
+	Orientation agent_orientation;
 };
 
 #endif // AGENT_H
