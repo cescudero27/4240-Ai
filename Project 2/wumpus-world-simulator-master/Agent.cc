@@ -17,10 +17,12 @@ Agent::~Agent ()
 
 void Agent::Initialize ()
 {
-	// setting out location to (1,1)
+	// setting our location to (1,1)
 	this-> agent_position = Location(1,1);
 	// setting the agent orientation to RIGHT
 	this-> agent_orientation = RIGHT;
+	// adding additional booleans to keep track of various elements
+	// adding elements based off of the WorldState.h 
 	worldSize = 4; 
 	hasGold = false;
 	hasArrow = true;
@@ -35,8 +37,9 @@ Action Agent::Process (Percept& percept)
 	char c;
 	Action action;
 	bool validAction = false;
-	// adding additional booleans to keep track of various elements
-	// adding elements based off of the WorldState.h 
+	
+	std::cout <<"\nX:"<< agent_position.X
+			  <<"\nY:"<< agent_position.Y<< endl;
 	
 	
 
@@ -51,14 +54,14 @@ Action Agent::Process (Percept& percept)
 		action = CLIMB;
 		inCave = false;
 	}
-	// considers if the agent has arrow and it's position on Y is at 4 and if the orientation of the agent is right
-	else if(hasArrow && ((agent_position.Y == 4) && (agent_orientation == RIGHT))){
+	// considers if the agent has arrow and it's position on Y is at 4 and if the orientation of the agent is UP
+	else if(hasArrow && ((agent_position.Y == 4) && (agent_orientation == UP))){
 		action = SHOOT;
 		hasArrow = false; // changes bool of arrow since it was fired
 		WumpusAlive = false; // wumpus is dead
 	}
-	// considers if the agent has arrow and it's position on X is 4 and if the orientation of the agent is UP
-	else if(hasArrow && ((agent_position.X == 4) && (agent_orientation == UP))){
+	// considers if the agent has arrow and it's position on X is 4 and if the orientation of the agent is 
+	else if(hasArrow && ((agent_position.X == 4) && (agent_orientation == RIGHT))){
 		action = SHOOT;
 		hasArrow = false; // changes bool of arrow since it was fired
 		WumpusAlive = false; // wumpus is dead
@@ -70,7 +73,7 @@ Action Agent::Process (Percept& percept)
 		// if statement to check if the movement of the randomized action 
 		if(action == GOFORWARD){
 			switch(agent_orientation) // using a switch statement to differentiate between the 4 possible positions
-			{
+			{// increment or decrement depending on case
 				case UP:
 					agent_position.X++;
 					break;
@@ -78,22 +81,24 @@ Action Agent::Process (Percept& percept)
 					agent_position.Y++;
 					break;
 				case DOWN:
-					agent_position.X++;
+					agent_position.X--;
 					break;
 				case LEFT:
-					agent_position.Y++;
+					agent_position.Y--;
 					break;
 			}
 
 			// we need to make sure the agent stays within the parameters of the worldSize
 			// 
-			if((agent_position.X > worldSize)||(agent_position.X < 1)
+			 agent_position.X = std::min(std::max(agent_position.X, 1), worldSize);
+             agent_position.Y = std::min(std::max(agent_position.Y, 1), worldSize);
+			/*if((agent_position.X > worldSize)||(agent_position.X < 1)
 			   || (agent_position.Y > worldSize)|| (agent_position.Y < 1)){
-				return;
+				agent_position =Location(agent_position.X,agent_position.Y);
 			}
 			else{
 				agent_position = Location(agent_position.X,agent_position.Y); // updates the position of the agent
-			}
+			}*/
 		}
 		// switch statement for each of the positions depending on its current orientation
 		//updates what the orientation is at each case
