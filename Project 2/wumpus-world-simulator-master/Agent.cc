@@ -92,13 +92,7 @@ Action Agent::Process (Percept& percept)
 			// 
 			 agent_position.X = std::min(std::max(agent_position.X, 1), worldSize);
              agent_position.Y = std::min(std::max(agent_position.Y, 1), worldSize);
-			/*if((agent_position.X > worldSize)||(agent_position.X < 1)
-			   || (agent_position.Y > worldSize)|| (agent_position.Y < 1)){
-				agent_position =Location(agent_position.X,agent_position.Y);
-			}
-			else{
-				agent_position = Location(agent_position.X,agent_position.Y); // updates the position of the agent
-			}*/
+			
 		}
 		// switch statement for each of the positions depending on its current orientation
 		//updates what the orientation is at each case
