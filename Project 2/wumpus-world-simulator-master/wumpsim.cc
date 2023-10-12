@@ -90,6 +90,7 @@ int main (int argc, char *argv[])
 		seed = (unsigned) time (0);
 	}
 	srand (seed);
+	srand(time(NULL));
 
 	// Print welcome
 	cout << "Welcome to the Wumpus World Simulator v";
